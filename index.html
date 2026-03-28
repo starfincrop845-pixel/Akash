@@ -1,1 +1,294 @@
+  <!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Housing Finance | Official Portal</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Segoe UI', Roboto, sans-serif; scroll-behavior: smooth; }
+        body { margin: 0; background-color: #f4f7f9; color: #333; }
+        
+        /* Top Bar */
+        .top-bar {
+            background-color: #87CEEB; padding: 10px 5%;
+            display: flex; justify-content: center; gap: 25px;
+            font-size: 13px; font-weight: bold; color: #002f6c;
+        }
+        .top-bar a { text-decoration: none; color: #002f6c; text-transform: uppercase; }
+
+        /* Header */
+        header { 
+            background: #fff; padding: 10px 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .logo-container { display: flex; flex-direction: column; }
+        .main-logo { height: 55px; width: auto; }
+        .slogan { font-style: italic; color: #c41e3a; font-size: 11px; font-weight: bold; margin-top: 2px; }
+
+        /* Menu Button ≡ */
+        .menu-btn { font-size: 35px; cursor: pointer; color: #002f6c; font-weight: bold; line-height: 1; }
+        .dropdown { 
+            display: none; position: absolute; top: 50px; right: 0; 
+            background: white; border-radius: 8px; width: 180px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2); overflow: hidden; z-index: 2000;
+        }
+        .dropdown a { display: block; padding: 12px; color: #333; text-decoration: none; border-bottom: 1px solid #eee; font-size: 14px; font-weight: normal; }
+        .menu-btn:hover .dropdown { display: block; }
+
+        /* Moving Headline */
+        .moving-line {
+            background-color: #002f6c; color: #ffcc00; padding: 12px 0;
+            overflow: hidden; white-space: nowrap; font-size: 15px; font-weight: 500;
+        }
+        .moving-text { display: inline-block; padding-left: 100%; animation: marquee 25s linear infinite; }
+        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        /* Slider */
+        .slider-container {
+            width: 92%; max-width: 500px; margin: 15px auto;
+            overflow: hidden; border-radius: 15px; position: relative; height: 180px; background: #fff;
+        }
+        .slides { display: flex; width: 100%; height: 100%; transition: transform 0.7s ease-in-out; }
+        .slides img { min-width: 100%; max-width: 100%; height: 100%; object-fit: contain; }
+        .dots { text-align: center; margin-top: -25px; position: relative; z-index: 10; }
+        .dot { height: 7px; width: 7px; margin: 0 3px; background-color: #bbb; border-radius: 50%; display: inline-block; }
+        .active-dot { background-color: #002f6c; width: 15px; border-radius: 10px; }
+
+        /* Container & Cards */
+        .container { padding: 10px 20px; max-width: 600px; margin: auto; }
+        .card { background: white; padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; }
+        h2 { color: #002f6c; border-left: 5px solid #ffcc00; padding-left: 10px; margin-top: 0; font-size: 20px; margin-bottom: 15px; }
+
+        input, select { width: 100%; padding: 12px; margin: 8px 0 15px 0; border: 1px solid #ccc; border-radius: 8px; font-size: 15px; }
+        .btn { border: none; padding: 15px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; transition: 0.3s; }
+        .btn-blue { background: #002f6c; color: white; }
+        .btn-green { background: #28a745; color: white; margin-top: 10px; }
+
+        /* Status Display UI */
+        #statusDisplay { display: none; margin-top: 20px; padding: 20px; border: 2.5px solid #002f6c; border-radius: 12px; background: #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .id-box { width: 160px; height: 110px; border: 2px solid #ddd; margin: 0 auto 20px auto; border-radius: 6px; overflow: hidden; display: flex; align-items: center; justify-content: center; background: #eee; }
+        .id-box img { width: 100%; height: 100%; object-fit: cover; }
+        .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px dashed #ddd; font-size: 14px; }
+        .val { font-weight: bold; color: #002f6c; }
+        .status-badge { text-align: center; font-size: 18px; font-weight: 800; margin-top: 15px; color: #28a745; text-transform: uppercase; }
+
+        /* Loan Service Items (Big Summary) */
+        .service-item { background-color: #e9ecef; padding: 25px; border-radius: 12px; margin-bottom: 15px; border-left: 6px solid #002f6c; }
+        .service-item h3 { margin: 0 0 12px 0; font-size: 19px; color: #002f6c; }
+        .service-item p { margin: 0; font-size: 14px; color: #444; line-height: 1.7; text-align: justify; }
+
+        /* Footer Section (Dark Mode) */
+        footer {
+            background-color: #1a1a1a; 
+            color: #ddd; padding: 50px 8% 30px 8%; margin-top: 50px;
+        }
+        .footer-logo { height: 75px; width: auto; margin-bottom: 25px; display: block; }
+        .footer-section { margin-bottom: 30px; }
+        .footer-section h4 { color: #ffcc00; margin-bottom: 15px; font-size: 19px; border-bottom: 1px solid #333; padding-bottom: 8px; text-transform: uppercase; }
+        .footer-section p { font-size: 14px; line-height: 1.8; margin: 10px 0; }
+        .copyright { text-align: center; border-top: 1px solid #333; padding-top: 25px; margin-top: 30px; font-size: 12px; color: #888; }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">
+    <a href="#applyCard">Apply Loan</a>
+    <a href="#statusCard">Check Status</a>
+    <a href="#services">Our Services</a>
+</div>
+
+<header>
+    <div class="logo-container">
+        <img src="https://i.ibb.co/ksZFWxRd/IMG-20260328-182610.jpg" alt="Star Logo" class="main-logo">
+        <div class="slogan">Star hai toh bharosa hai</div>
+    </div>
+    <div class="menu-btn">
+        ≡
+        <div class="dropdown">
+            <a href="#applyCard">Apply Now</a>
+            <a href="#statusCard">Track Status</a>
+            <a href="#services">Loan Services</a>
+            <a href="#footer">About Us</a>
+        </div>
+    </div>
+</header>
+
+<div class="moving-line">
+    <div class="moving-text">
+        Sabhi prakr ke loan km byaj v aasan kesto pr paye Aaj he call kre 8607967484 &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; Star Housing Finance: Star hai toh bharosa hai! &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp; Call: 8607967484
+    </div>
+</div>
+
+<div class="slider-container">
+    <div class="slides" id="imageSlides">
+        <img src="https://i.ibb.co/TDLdgswf/Screenshot-20260328-175242.jpg">
+        <img src="https://i.ibb.co/6zGnnY1/Screenshot-20260328-175316.jpg">
+        <img src="https://i.ibb.co/wFwyFZfH/Screenshot-20260328-175347.jpg">
+    </div>
+</div>
+<div class="dots">
+    <span class="dot active-dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
+</div>
+
+<div class="container">
+    <div class="card" id="applyCard">
+        <h2>Loan Application</h2>
+        <input type="text" id="userName" placeholder="Full Name">
+        <input type="tel" id="userMobile" placeholder="Mobile Number">
+        <input type="number" id="userAmount" placeholder="Amount (Min 1,00,000)">
+        <select id="userCategory">
+            <option value="Personal Loan">Personal Loan</option>
+            <option value="Home Loan">Home Loan</option>
+            <option value="Business Loan">Business Loan</option>
+        </select>
+        <button class="btn btn-blue" id="submitBtn">Submit Application</button>
+    </div>
+
+    <div class="card" id="statusCard">
+        <h2>Check Status</h2>
+        <input type="tel" id="trackMobile" placeholder="Registered Mobile Number">
+        <button class="btn btn-green" id="trackBtn">Track Status</button>
+
+        <div id="statusDisplay">
+            <div class="id-box">
+                <img id="stPhoto" src="https://via.placeholder.com/160x110?text=ID+CARD" alt="Client Image">
+            </div>
+            <div class="detail-row"><span>Name:</span> <span class="val" id="stName">-</span></div>
+            <div class="detail-row"><span>Amount:</span> <span class="val" id="stAmount">-</span></div>
+            <div class="detail-row"><span>Category:</span> <span class="val" id="stCat">-</span></div>
+            <div class="detail-row"><span>ROI:</span> <span class="val" id="stROI">N/A</span></div>
+            <div class="detail-row"><span>Monthly EMI:</span> <span class="val" id="stEMI">N/A</span></div>
+            <div class="detail-row"><span>Fees:</span> <span class="val" id="stFees">N/A</span></div>
+            <div class="status-badge" id="stStatus">PENDING</div>
+        </div>
+    </div>
+
+    <div class="services-section" id="services">
+        <h2>Our Detailed Loan Services</h2>
+        
+        <div class="service-item">
+            <h3>👤 Personal Loan</h3>
+            <p>Our personal loan service provides quick financial support for all your personal requirements such as weddings, medical emergencies, travel, or home expenses. We offer instant approval with minimal documentation and attractive interest rates to ensure you get the funds when you need them most. Our flexible repayment options are designed to fit your monthly budget perfectly.</p>
+        </div>
+
+        <div class="service-item">
+            <h3>🏠 Home Loan</h3>
+            <p>Make your dream home a reality with Star Housing Finance. Whether you're looking to buy a new flat, construct your own house, or renovate your existing property, we offer customized home loan solutions with long-term repayment tenures and the lowest interest rates in the industry. We provide up to 90% financing with hassle-free property legal verification.</p>
+        </div>
+
+        <div class="service-item">
+            <h3>💼 Business Loan</h3>
+            <p>Empower your business growth with our specialized business loans. Designed for entrepreneurs and small business owners, our loans help you manage working capital, purchase machinery, or expand your operations. Enjoy flexible EMI plans and fast processing to keep your business moving forward without any collateral requirements for eligible applicants.</p>
+        </div>
+
+        <div class="service-item">
+            <h3>🚗 Car Loan</h3>
+            <p>Get behind the wheel of your favorite vehicle today. We offer easy financing for both new and pre-owned cars with high loan eligibility and quick verification. Our car loans come with zero hidden charges and a hassle-free application process, ensuring you drive home with peace of mind and an affordable interest rate.</p>
+        </div>
+    </div>
+</div>
+
+<footer id="footer">
+    <img src="https://i.ibb.co/FkJVGHR8/file-0000000013c0720b8c971b984b60899b.png" alt="Footer Logo" class="footer-logo">
+    
+    <div class="footer-section">
+        <h4>Star Finance Summary</h4>
+        <p>Star Housing Finance is a leading provider of accessible and transparent financial solutions. With a focus on speed, integrity, and customer satisfaction, we help thousands of families achieve financial independence through our smart and affordable loan products. Our aim is to simplify the lending process for every citizen.</p>
+    </div>
+
+    <div class="footer-section">
+        <h4>About Our Company</h4>
+        <p>We believe in the power of dreams. Our mission is to provide financial wings to every Indian household. "Star hai toh bharosa hai" reflects our core values of trust and transparency. We have been serving the community with dedication, building long-lasting relationships based on mutual respect and growth.</p>
+    </div>
+
+    <div class="footer-section">
+        <h4>Contact & Working Hours</h4>
+        <p><strong>Work Hours:</strong> Mon - Sat (10:00 AM - 6:30 PM)</p>
+        <p><strong>Contact Number:</strong> +91 8607967484</p>
+        <p><strong>Email Address:</strong> info@starhousingfinance.com</p>
+        <p><strong>Office Address:</strong> B25, Ground Floor, Sector-28, Chandigarh.</p>
+    </div>
+
+    <div class="copyright">
+        © 2026 Star Housing Finance. All Rights Reserved. | Star hai toh bharosa hai.
+    </div>
+</footer>
+
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCczgeAgdoGq4s6Jb8lAYE6j5rr4l5qB2Q",
+        authDomain: "star-1-b9f52.firebaseapp.com",
+        databaseURL: "https://star-1-b9f52-default-rtdb.firebaseio.com",
+        projectId: "star-1-b9f52",
+        storageBucket: "star-1-b9f52.firebasestorage.app",
+        messagingSenderId: "34774271228",
+        appId: "1:34774271228:web:a7c19c619175c62dd20379"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // SLIDER LOGIC
+    let counter = 0;
+    const slides = document.getElementById('imageSlides');
+    const dotElements = document.querySelectorAll('.dot');
+    setInterval(() => {
+        counter++; if(counter > 2) counter = 0;
+        slides.style.transform = `translateX(${-counter * 100}%)`;
+        dotElements.forEach((d, i) => d.classList.toggle('active-dot', i === counter));
+    }, 4000);
+
+    // SUBMIT DATA
+    document.getElementById('submitBtn').onclick = function() {
+        const name = document.getElementById('userName').value;
+        const mobile = document.getElementById('userMobile').value;
+        const amount = document.getElementById('userAmount').value;
+        const category = document.getElementById('userCategory').value;
+
+        if(name && mobile && amount >= 100000) {
+            set(ref(db, 'loans/' + mobile), {
+                name, mobile, amount, category,
+                status: "Under Review", roi: "Processing", emi: "Processing", fees: "TBD", photoUrl: ""
+            }).then(() => {
+                alert("Application Submitted!");
+                location.reload();
+            });
+        } else {
+            alert("Min ₹1,00,000 and all fields required!");
+        }
+    };
+
+    // --- TRACK STATUS FUNCTION (WORKING) ---
+    document.getElementById('trackBtn').onclick = function() {
+        const mobile = document.getElementById('trackMobile').value;
+        if(!mobile) { alert("Mobile number daaliye"); return; }
+
+        get(child(ref(db), `loans/${mobile}`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                document.getElementById('stName').innerText = data.name;
+                document.getElementById('stAmount').innerText = "₹" + Number(data.amount).toLocaleString();
+                document.getElementById('stCat').innerText = data.category;
+                document.getElementById('stROI').innerText = data.roi || "10.5%";
+                document.getElementById('stEMI').innerText = data.emi || "TBD";
+                document.getElementById('stFees').innerText = data.fees || "TBD";
+                document.getElementById('stStatus').innerText = data.status || "Pending";
                 
+                if(data.photoUrl) document.getElementById('stPhoto').src = data.photoUrl;
+                
+                document.getElementById('statusDisplay').style.display = 'block';
+                document.getElementById('statusDisplay').scrollIntoView();
+            } else {
+                alert("Koi record nahi mila!");
+            }
+        });
+    };
+</script>
+</body>
+</html>              
