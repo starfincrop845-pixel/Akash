@@ -1,6 +1,14 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="hi">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18137345130"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-18137345130');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Star Housing Finance | Official Portal</title>
@@ -256,6 +264,13 @@
                 name, mobile, amount, category,
                 status: "Under Review", roi: "Processing", emi: "Processing", fees: "TBD", photoUrl: ""
             }).then(() => {
+                // GOOGLE ADS CONVERSION TRIGGER
+                try {
+                    gtag('event', 'conversion', {'send_to': 'AW-18137345130/IiVrCLiz87McEOrYx8hD'});
+                } catch(err) {
+                    console.log("Tracking error:", err);
+                }
+
                 alert("Application Submitted!");
                 location.reload();
             });
@@ -291,4 +306,4 @@
     };
 </script>
 </body>
-</html>              
+</html>
